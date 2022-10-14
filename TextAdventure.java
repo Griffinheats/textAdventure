@@ -47,17 +47,16 @@ public class TextAdventure
     {
       forestEncounter();
     }
+    else
+      System.out.println("Thankfully you were able to make it through the forst to the city safely.")
+  
   }
 
   public void forestEncounter()
   {
-    int x = (int)(Math.random()*4+1);
-    if(x == 1)
-    {
       System.out.println("As you make your way through the rest of the forest to go to the city, you hear a russling in the bushes");
       System.out.println("Moments later a creature known as an owlbear jumps from the bushes and attacks you");
       
-    }
   }
 
   private void enterZone1()
