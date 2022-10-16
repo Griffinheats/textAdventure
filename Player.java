@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class Player
 {
   String name, weapon;
@@ -7,6 +5,7 @@ public class Player
   double gold;
   int monstersDefeated;
   int mana, maxMana;
+  int physicalLvl = 1, magicLvl = 1;
 
   public Player(String playerName, int startingHealth, double startingGold, int startingMana)
   {
@@ -19,10 +18,21 @@ public class Player
     weapon = "fists";
   }
 
-  public void swapWeapon(String item)
+  public String getWeapon()
   {
-    weapon = item;
+    return weapon;
   }
+
+  public void swapWeapon(String w)
+  {
+    weapon = w;
+  }
+
+  public int getMaxHP()
+  {
+    return maxHealth;
+  }
+
   public String getName()
   {
     return name;
@@ -61,5 +71,53 @@ public class Player
   public void defeatMonster()
   {
      monstersDefeated += 1;
+  }
+
+  public int getMana()
+  {
+    return mana;
+  }
+
+  public void removeMana(int x)
+  {
+    mana -= x;
+  }
+
+  public void addMana(int x)
+  {
+    mana += x;
+    if(mana > maxMana)
+    {
+      mana = maxMana;
+    }
+  }
+
+  public int getMaxMana()
+  {
+    return maxMana;
+  }
+
+  public int getPhysicalLvl()
+  {
+    return physicalLvl;
+  }
+
+  public int getMagicLvl()
+  {
+    return magicLvl;
+  }
+
+  public int increasePhys()
+  {
+    monstersDefeated -= 1;
+    physicalLvl += 1;
+    return physicalLvl;
+  }
+
+  public int increaseMagic()
+  {
+    monstersDefeated -= 1;
+    magicLvl += 1;
+    return magicLvl;
   }
 }
