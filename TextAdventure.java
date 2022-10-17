@@ -165,10 +165,22 @@ public class TextAdventure
   {
     // change image
     // ADD CODE HERE
+    console.setImage("mountains.png");
 
     // describe the area/situation to the user. 
     // Give them options for choices.
     // ADD CODE HERE
+    Scanner path = new Scanner(System.in);
+    String pathway;
+    System.out.println("As you aproach the mountain You see a young white dragon sitting atop it");
+    System.out.println("You can see two paths that lead to peak of the mountain, one through the caves and another following a path up the mountain");
+    System.out.println("[1]Caves\n[2]Path\n");
+    pathway = path.nextLine();
+    if(pathway.equals("1"))
+      enterZone5();
+    else
+      enterZone6();
+
 
     // Take action or go to another zone based on their choice
     // ADD CODE HERE
@@ -179,11 +191,17 @@ public class TextAdventure
   {
     // change image
     // ADD CODE HERE
+    console.setImage("caves.jpg");
 
     // describe the area/situation to the user. 
     // Give them options for choices.
     // ADD CODE HERE
-
+    Scanner sneak = new Scanner(System.in);
+    String sneakPass;
+    System.out.println("As you enter into the caves you see a sleeping wyrmling and what looks like a sword in the distance");
+    System.out.println("[1]Grab the sword\n[2]Ignore it and keep walking\n");
+    sneakPass = sneak.nextLine();
+    
     // Take action or go to another zone based on their choice
     // ADD CODE HERE
     
