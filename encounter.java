@@ -212,7 +212,7 @@ public class encounter
                     subMana = 50;
                 else if(input.equals("4"))
                     subMana = 60;
-                return 0;
+                return subMana;
             }
         }
         input.close();
