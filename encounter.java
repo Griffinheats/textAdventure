@@ -55,7 +55,6 @@ public class encounter
                         System.out.println("A critical hit!");
                     }
                     System.out.println("You hit for " + x + " damage");
-                    input.close();
                     return x;
                 }
                 else if(weapon.equals("dagger"))
@@ -67,7 +66,6 @@ public class encounter
                         System.out.println("A critical hit!");
                     }
                     System.out.println("You hit for " + x + " damage");
-                    input.close();
                     return x;
                 }
                 else if(weapon.equals("axe"))
@@ -79,7 +77,6 @@ public class encounter
                         System.out.println("A critical hit!");
                     }
                     System.out.println("You hit for " + x + " damage");
-                    input.close();
                     return x;
                 }
                 else if(weapon.equals("longsword"))
@@ -91,14 +88,12 @@ public class encounter
                         System.out.println("A critical hit!");
                     }
                     System.out.println("You hit for " + x + " damage");
-                    input.close();
                     return x;
                 }
             }
             else
             {
                 System.out.println("Your attack missed");
-                input.close();
                 return 0;
             }
         }
@@ -123,13 +118,13 @@ public class encounter
                     }
                     subMana = 10;
                     System.out.println("You hit for " + x + " damage");
-                    input.close();
+                    
                     return x; 
                 }
                 else if(spell.equals("1") && mana < 10)
                 {
                     System.out.println("You do not have enough mana to cast this spell, your turn was skipped");
-                    input.close();
+                    
                     return 0;
                 }
                 //Cure wounds
@@ -146,13 +141,13 @@ public class encounter
                         }
                         System.out.println("You heal yourself for " + x + " health");
                     }
-                    input.close();
+                    
                     return 0;
                 }
                 else if(spell.equals("2") && mana < 20)
                 {
                     System.out.println("You do not have enough mana to cast this spell, your turn was skipped");
-                    input.close();
+                    
                     return 0;
                 }
                 //lightning bolt
@@ -166,13 +161,13 @@ public class encounter
                     }
                     subMana = 10;
                     System.out.println("You hit for " + x + " damage");
-                    input.close();
+                    
                     return x; 
                 }
                 else if(spell.equals("3") && mana < 50)
                 {
                     System.out.println("You do not have enough mana to cast this spell, your turn was skipped");
-                    input.close();
+                    
                     return 0;
                 }
                 //Cure Wounds
@@ -189,20 +184,20 @@ public class encounter
                         }
                         System.out.println("You heal yourself for " + x + " health");
                     }
-                    input.close();
+                    
                     return 0;
                 }
                 else if(spell.equals("2") && mana < 60)
                 {
                     System.out.println("You do not have enough mana to cast this spell, your turn was skipped");
-                    input.close();
+                    
                     return 0;
                 }
             }
             else
             {
                 System.out.println("Your spell missed");
-                input.close();
+                
                 usedMagic = true;
                 if(input.equals("1"))
                     subMana = 10;
@@ -215,7 +210,7 @@ public class encounter
                 return subMana;
             }
         }
-        input.close();
+        
         return 0;
     }
 

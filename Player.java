@@ -53,26 +53,6 @@ public class Player
     health = newHealth;
   }
 
-  public double getGold()
-  {
-    return gold;
-  }
-
-  public void setGold(double newAmount)
-  {
-    gold = newAmount;
-  }
-
-  public int getMonstersDefeated()
-  {
-    return monstersDefeated;
-  }
-
-  public void defeatMonster()
-  {
-     monstersDefeated += 1;
-  }
-
   public int getMana()
   {
     return mana;

@@ -39,9 +39,10 @@ public class TextAdventure
       enterZone1();
     }
     else
+    {
       enterZone2();
+    }
     // ADD CODE HERE
-
   }
 
   public boolean forestEncounter()
@@ -51,7 +52,7 @@ public class TextAdventure
     {
       owlBear.startRound(ourHero.getName(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getMana(), ourHero.getMaxMana());
       owlBear.subtractHP(owlBear.playerTurn(ourHero.getWeapon(), ourHero.getMana(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getPhysicalLvl(), ourHero.getMagicLvl()));
-      if(owlBear.usedMagic == true)
+      if(owlBear.usedMagic)
       {
         ourHero.removeMana((owlBear.manaUsed()));
       }
@@ -59,14 +60,15 @@ public class TextAdventure
       ourHero.addMana(3);
     }
     if(ourHero.getHealth() <= 0)
-      return false;
-    else
       return true;
+    else
+      return false;
   }
 
   public boolean pumpkinEncounter()
   {
-    encounter pumpkins = new encounter("Pumpkins", 63, 6, 3, 12);
+    console.setImage("pumpkintrio.png");
+    encounter pumpkins = new encounter("Pumpkins", 63, 4, 3, 12);
     while(pumpkins.getMonsterHealth() > 0 && ourHero.getHealth() > 0)
     {
       pumpkins.startRound(ourHero.getName(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getMana(), ourHero.getMaxMana());
@@ -75,6 +77,8 @@ public class TextAdventure
       {
         ourHero.removeMana((pumpkins.manaUsed()));
       }
+      ourHero.setHealth(ourHero.getHealth()-pumpkins.monsterTurn());
+      ourHero.setHealth(ourHero.getHealth()-pumpkins.monsterTurn());
       ourHero.setHealth(ourHero.getHealth()-pumpkins.monsterTurn());
       ourHero.addMana(3);
     }
@@ -126,9 +130,11 @@ public class TextAdventure
 
   private void enterZone1() //city
   {
+    
+    System.out.println("Entered zone 1");
     // change image
     // ADD CODE HERE
-    console.setImage("city.jpg");
+    console.setImage("ocean.jpg"); //Fix image it might be the size
     // describe the area/situation to the user. 
     // Give them options for choices.
     // ADD CODE HERE
@@ -140,7 +146,6 @@ public class TextAdventure
     // Take action or go to another zone based on their choice
     // ADD CODE HERE
     shopChoice = shop.nextLine();
-    shop.close();
     if(shopChoice.equals("1"))
     {
       System.out.println("The item shopkeep greets you with a big smile as he shows off his wares, A sword that is in a display case catches your eye but you still have no money");
@@ -176,21 +181,22 @@ public class TextAdventure
     System.out.println("As you make your way through the rest of the forest to go to the city, you hear a russling in the bushes");
     System.out.println("Moments later a large creature known as an owlbear jumps from the bushes and attacks you");
     dead = forestEncounter();
-    if(dead == true)
+    if(dead)
       gameLost();
-
-    // Take action or go to another zone based on their choice
-    // ADD CODE HERE
-    System.out.println("The path forks here, you could explore a little more or you could go stright to the mountains");
-    System.out.println("[1]Explore more\n[2]Continue to the mountain\n");
-    forkChoice = fork.nextLine();
-    fork.close();
-    if(forkChoice.equals("1"))
-      enterZone3();
-    else 
+    else
     {
-      System.out.println("You head over to the mountain");
-      enterZone4();
+      // Take action or go to another zone based on their choice
+      // ADD CODE HERE
+      System.out.println("The path forks here, you could explore a little more or you could go stright to the mountains");
+      System.out.println("[1]Explore more\n[2]Continue to the mountain\n");
+      forkChoice = fork.nextLine();
+      if(forkChoice.equals("1"))
+        enterZone3();
+      else 
+      {
+        System.out.println("You head over to the mountain");
+        enterZone4();
+      }
     }
   }
 
@@ -233,7 +239,6 @@ public class TextAdventure
     System.out.println("You can see two paths that lead to peak of the mountain, one through the caves and another following a path up the mountain");
     System.out.println("[1]Caves\n[2]Path\n");
     pathway = path.nextLine();
-    path.close();
     if(pathway.equals("1"))
       enterZone5();
     else
@@ -259,7 +264,6 @@ public class TextAdventure
     System.out.println("As you enter into the caves you see a sleeping wyrmling and what looks like a sword in the distance");
     System.out.println("[1]Grab the sword\n[2]Ignore it and keep walking\n");
     sneakPass = sneak.nextLine();
-    sneak.close();
     if(sneakPass.equals("1"))
     {
       System.out.println("You walk over as quiet as you can and try to grab the sword.");
@@ -303,14 +307,12 @@ public class TextAdventure
     System.out.println("After claiming the life of the dragon you head your way down the mountain back to the city with the dragons horn as proof of the kill");
     console.setImage("city");
     System.out.println("You present the horn the the shop and in exchange they give you the enchanted longsword.");
-
     inScanner.close();
   }
 
-  private void  gameLost()
+  private void gameLost()
   {
     System.out.println("You died, whatever killed you must have been tough, or maybe you were just unlucky.");
-
     inScanner.close();
   }
 }
