@@ -1,7 +1,7 @@
 public class Player
 {
   String name, weapon;
-  int health, maxHealth;
+  int health, maxHealth = 200;
   double gold;
   int monstersDefeated;
   int mana, maxMana;

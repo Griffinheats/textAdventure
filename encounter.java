@@ -1,5 +1,7 @@
 import java.util.*;
 
+import javax.lang.model.util.ElementScanner14;
+
 public class encounter 
 {
     String name, choice;
@@ -98,14 +100,15 @@ public class encounter
             }
         }
         //Magic
-        else if(choice.equals("2"));
+        else
         {
             usedMagic = true;
             int hit = (int)((Math.random()*20+1));
             int hitMod = (int)(Math.random()*6+1);
-            System.out.println("What spell are you using\n[1]Fire Bolt - 10 mana"+ "\n[2]Healing Word - 20 mana" + "\n[3]Lightning Bolt - 50 mana" + "\n[4]Cure Wounds - 60 mana\n");
+            System.out.println("What spell are you using\n[1]Fire Bolt - 10 mana"+ "\n[2]Lightning Bolt - 50 mana\n");
             String spell = input.nextLine();
-            if(hit + hitMod >= ac)
+
+            if(hit + hitMod >= ac && mana >= 10)
             {
                 //Firebolt
                 if(spell.equals("1") && mana >= 10)
@@ -127,31 +130,8 @@ public class encounter
                     
                     return 0;
                 }
-                //Cure wounds
-                else if(spell.equals("2") && mana >= 20)
-                {
-                    subMana = 20;
-                    int x = (int)(Math.random()*10+2);
-                    if(hp < maxHP)
-                    {
-                        hp += x;
-                        if(hp > maxHP)
-                        {
-                            hp = maxHP;
-                        }
-                        System.out.println("You heal yourself for " + x + " health");
-                    }
-                    
-                    return 0;
-                }
-                else if(spell.equals("2") && mana < 20)
-                {
-                    System.out.println("You do not have enough mana to cast this spell, your turn was skipped");
-                    
-                    return 0;
-                }
-                //lightning bolt
-                else if(spell.equals("3") && mana >= 50)
+                
+                else if(spell.equals("2") && mana >= 50)
                 {
                     int x = (int)(Math.random()*29+4);
                     if(hit == 20)
@@ -159,65 +139,39 @@ public class encounter
                         x *=2;
                         System.out.println("A critical hit!");
                     }
-                    subMana = 10;
+                    subMana = 50;
                     System.out.println("You hit for " + x + " damage");
                     
                     return x; 
                 }
-                else if(spell.equals("3") && mana < 50)
+                else if(spell.equals("2") && mana < 50)
                 {
                     System.out.println("You do not have enough mana to cast this spell, your turn was skipped");
                     
                     return 0;
                 }
-                //Cure Wounds
-                else if(spell.equals("4") && mana >= 60)
-                {
-                    subMana = 60;
-                    int x = (int)(Math.random()*29+4+magiclvl);
-                    if(hp < maxHP)
-                    {
-                        hp += x;
-                        if(hp > maxHP)
-                        {
-                            hp = maxHP;
-                        }
-                        System.out.println("You heal yourself for " + x + " health");
-                    }
-                    
-                    return 0;
-                }
-                else if(spell.equals("2") && mana < 60)
-                {
-                    System.out.println("You do not have enough mana to cast this spell, your turn was skipped");
-                    
-                    return 0;
-                }
+                
             }
-            else
+            else if(hit+hitMod < ac)
             {
                 System.out.println("Your spell missed");
                 
                 usedMagic = true;
-                if(input.equals("1"))
+                if(spell.equals("1"))
                     subMana = 10;
-                else if(input.equals("2"))
-                    subMana = 20;
-                else if(input.equals("3"))
+                else if(spell.equals("2"))
                     subMana = 50;
-                else if(input.equals("4"))
-                    subMana = 60;
-                return subMana;
+                return 0;
             }
+            
         }
-        
         return 0;
     }
 
     public int monsterTurn()
     {
         int roll = (int)(Math.random()*20+1);
-        if(roll >= 10)
+        if(roll >= 13)
         {
             int damage = (int)(Math.random()*atk1+1) + meleMod;
             System.out.println("The " + name + " hit you for " + damage + " damage");
@@ -235,9 +189,9 @@ public class encounter
         return health;
     }
 
-    public int subtractHP(int x)
+    public void subtractHP(int x)
     {
-        return health - x;
+        health -= x;
     }
 
     public boolean didMagic()

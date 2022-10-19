@@ -13,7 +13,7 @@ public class TextAdventure
     inScanner = new Scanner(System.in);
 
     // feel free to change the player's starting values
-    ourHero = new Player("Bob", 100, 0, 100);
+    ourHero = new Player("Bob", 200, 0, 100);
   }
 
   public void play()
@@ -38,7 +38,7 @@ public class TextAdventure
     {
       enterZone1();
     }
-    else
+    else if(input != "city")
     {
       enterZone2();
     }
@@ -47,7 +47,7 @@ public class TextAdventure
 
   public boolean forestEncounter()
   {
-    encounter owlBear = new encounter("OwlBear", 37, 10, 5, 14);
+    encounter owlBear = new encounter("OwlBear", 37, 6, 3, 12);
     while(owlBear.getMonsterHealth() > 0 && ourHero.getHealth() > 0)
     {
       owlBear.startRound(ourHero.getName(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getMana(), ourHero.getMaxMana());
@@ -68,12 +68,12 @@ public class TextAdventure
   public boolean pumpkinEncounter()
   {
     console.setImage("pumpkintrio.png");
-    encounter pumpkins = new encounter("Pumpkins", 63, 4, 3, 12);
+    encounter pumpkins = new encounter("Pumpkins", 43, 4, 3, 10);
     while(pumpkins.getMonsterHealth() > 0 && ourHero.getHealth() > 0)
     {
       pumpkins.startRound(ourHero.getName(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getMana(), ourHero.getMaxMana());
       pumpkins.subtractHP(pumpkins.playerTurn(ourHero.getWeapon(), ourHero.getMana(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getPhysicalLvl(), ourHero.getMagicLvl()));
-      if(pumpkins.usedMagic == true)
+      if(pumpkins.usedMagic )
       {
         ourHero.removeMana((pumpkins.manaUsed()));
       }
@@ -83,19 +83,19 @@ public class TextAdventure
       ourHero.addMana(3);
     }
     if(ourHero.getHealth() <= 0)
-      return false;
-    else
       return true;
+    else
+      return false;
   }
 
   public boolean wyrmlingEncounter()
   {
-    encounter wyrmling = new encounter("White dragon wyrmling", 38, 10, 4, 16);
+    encounter wyrmling = new encounter("White dragon wyrmling", 38, 10, 4, 13);
     while(wyrmling.getMonsterHealth() > 0 && ourHero.getHealth() > 0)
     {
       wyrmling.startRound(ourHero.getName(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getMana(), ourHero.getMaxMana());
       wyrmling.subtractHP(wyrmling.playerTurn(ourHero.getWeapon(), ourHero.getMana(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getPhysicalLvl(), ourHero.getMagicLvl()));
-      if(wyrmling.usedMagic == true)
+      if(wyrmling.usedMagic )
       {
         ourHero.removeMana((wyrmling.manaUsed()));
       }
@@ -103,19 +103,19 @@ public class TextAdventure
       ourHero.addMana(3);
     }
     if(ourHero.getHealth() <= 0)
-      return false;
-    else
       return true;
+    else
+      return false;
   }
 
   public boolean dragonEncounter()
   {
-    encounter dragon = new encounter("White Dragon", 160, 12, 5, 17);
+    encounter dragon = new encounter("White Dragon", 100, 12, 5, 14);
     while(dragon.getMonsterHealth() > 0 && ourHero.getHealth() > 0)
     {
       dragon.startRound(ourHero.getName(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getMana(), ourHero.getMaxMana());
       dragon.subtractHP(dragon.playerTurn(ourHero.getWeapon(), ourHero.getMana(), ourHero.getHealth(), ourHero.getMaxHP(), ourHero.getPhysicalLvl(), ourHero.getMagicLvl()));
-      if(dragon.usedMagic == true)
+      if(dragon.usedMagic)
       {
         ourHero.removeMana((dragon.manaUsed()));
       }
@@ -123,9 +123,9 @@ public class TextAdventure
       ourHero.addMana(3);
     }
     if(ourHero.getHealth() <= 0)
-      return false;
-    else
       return true;
+    else
+      return false;
   }
 
   private void enterZone1() //city
@@ -134,7 +134,7 @@ public class TextAdventure
     System.out.println("Entered zone 1");
     // change image
     // ADD CODE HERE
-    console.setImage("ocean.jpg"); //Fix image it might be the size
+    console.setImage("city.jpg"); //Fix image it might be the size
     // describe the area/situation to the user. 
     // Give them options for choices.
     // ADD CODE HERE
@@ -216,12 +216,15 @@ public class TextAdventure
     System.out.println("As you grab your new weapon you cast aside your old weapon and smash a nearby pumpkin to test this new one");
     System.out.println("Once you have finished smashing a pumpkin you see two other pumpkins grow glowing eyes");
     dead = pumpkinEncounter();
-    if(dead == true)
+    if(dead)
       gameLost();
-    // Take action or go to another zone based on their choice
-    // ADD CODE HERE
-    System.out.println("Now that thoes pumpkins have been delt with you move onto the mountains, now feeling more confidant with your new weapon");
-    enterZone4();
+    else
+    {
+      // Take action or go to another zone based on their choice
+      // ADD CODE HERE
+      System.out.println("Now that thoes pumpkins have been delt with you move onto the mountains, now feeling more confidant with your new weapon");
+      enterZone4();
+    }
   }
 
   private void enterZone4() //mountains
@@ -271,12 +274,14 @@ public class TextAdventure
       ourHero.swapWeapon("longsword");
       System.out.println("As you start to walk away to turn your back to the wyrmling and moments later hear it wake up");
       dead = wyrmlingEncounter();
-      if(dead == true)
+      if(dead)
         gameLost();
+      else{}
     }
     else
       System.out.println("You were able to very quietly sneak pass the wyrmling without waking it up");
-    enterZone6();
+    if(dead != true)
+      enterZone6();
     // Take action or go to another zone based on their choice
     // ADD CODE HERE
   }
@@ -285,7 +290,7 @@ public class TextAdventure
   {
     // change image
     // ADD CODE HERE
-    console.setImage("mountain.png");
+    console.setImage("dragon.jpg");
     // describe the area/situation to the user. 
     // Give them options for choices.
     // ADD CODE HERE
@@ -293,25 +298,26 @@ public class TextAdventure
     System.out.println("As you cautiously pear into the nest you see the dragon sitting there atop its mound of gold.");
     System.out.println("Though it is freezing you decide that it is time to finish what you came here to do and you hop into the nest prepared for a battle");
     dead = dragonEncounter();
-    if(dead == true)
+    if(dead)
       gameLost();
     else  
       gameEnd();
     // Take action or go to another zone based on their choice
     // ADD CODE HERE
-    
   }
 
   private void gameEnd()
   {
+    console.setImage("treasure.jpg");
     System.out.println("After claiming the life of the dragon you head your way down the mountain back to the city with the dragons horn as proof of the kill");
-    console.setImage("city");
     System.out.println("You present the horn the the shop and in exchange they give you the enchanted longsword.");
+    System.out.println("End of the game");
     inScanner.close();
   }
 
   private void gameLost()
   {
+    console.setImage("dead.jpg");
     System.out.println("You died, whatever killed you must have been tough, or maybe you were just unlucky.");
     inScanner.close();
   }
